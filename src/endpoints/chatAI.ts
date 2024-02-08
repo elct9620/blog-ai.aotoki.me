@@ -1,6 +1,6 @@
 import {
-	OpenAPIRoute,
-	OpenAPIRouteSchema,
+  OpenAPIRoute,
+  OpenAPIRouteSchema,
 } from "@cloudflare/itty-router-openapi";
 import { Question, Answer } from "../types";
 import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
@@ -13,56 +13,61 @@ import {
 } from "@langchain/core/runnables";
 import { StringOutputParser } from "@langchain/core/output_parsers";
 
-const EMBENDDINGS_MODEL = "text-embedding-3-small"
+const EMBENDDINGS_MODEL = "text-embedding-3-small";
 
 export const formatContentAsString = (documents: Document[]): string =>
-  documents.map((doc) => [`Title: ${doc.metadata.title}`,
-    `Content: ${doc.pageContent}`,
-    `Permalink: ${doc.metadata.permalink}`
-  ].join("\n")).join("\n\n");
+  documents
+    .map((doc) =>
+      [
+        `Title: ${doc.metadata.title}`,
+        `Content: ${doc.pageContent}`,
+        `Permalink: ${doc.metadata.permalink}`,
+      ].join("\n"),
+    )
+    .join("\n\n");
 
 export class ChatAI extends OpenAPIRoute {
-	static schema: OpenAPIRouteSchema = {
-		tags: ["AI"],
-		summary: "Chat with the AI",
-		requestBody: Question,
-		responses: {
-			"200": {
-				description: "Returns the created task",
-				schema: {
-					success: Boolean,
-					data: Answer,
-				},
-			},
-		},
-	};
+  static schema: OpenAPIRouteSchema = {
+    tags: ["AI"],
+    summary: "Chat with the AI",
+    requestBody: Question,
+    responses: {
+      "200": {
+        description: "Returns the created task",
+        schema: {
+          success: Boolean,
+          data: Answer,
+        },
+      },
+    },
+  };
 
-	async handle(
-		request: Request,
-		env: any,
-		context: any,
-		data: Record<string, any>
-	) {
-	  const model = new ChatOpenAI({
+  async handle(
+    request: Request,
+    env: any,
+    context: any,
+    data: Record<string, any>,
+  ) {
+    const model = new ChatOpenAI({
       openAIApiKey: env.OPENAI_API_KEY,
       modelName: "gpt-3.5-turbo",
       configuration: {
-        baseURL: env.OPENAI_GATEWAY
-      }
-	  })
-	  const embeddings = new OpenAIEmbeddings({
+        baseURL: env.OPENAI_GATEWAY,
+      },
+    });
+    const embeddings = new OpenAIEmbeddings({
       openAIApiKey: env.OPENAI_API_KEY,
       modelName: EMBENDDINGS_MODEL,
       configuration: {
-        baseURL: env.OPENAI_GATEWAY
-      }
-	  })
-	  const store = new CloudflareVectorizeStore(embeddings, {
+        baseURL: env.OPENAI_GATEWAY,
+      },
+    });
+    const store = new CloudflareVectorizeStore(embeddings, {
       index: env.VECTORIZE_INDEX,
-	  })
+    });
 
-    const retriever = store.asRetriever()
-		const prompt = PromptTemplate.fromTemplate(`#language:zh-TW
+    const retriever = store.asRetriever();
+    const prompt = PromptTemplate.fromTemplate(`#language:zh-TW
 		  Your are the author (蒼時弦也) of the blog try to suggest article for the question in Mandarin Chinese with permalink and based only below article parts:
       {context}
 
@@ -79,7 +84,7 @@ export class ChatAI extends OpenAPIRoute {
       * [優雅的 RSpec 測試 - 測試案例](https://blog.aotoki.me/posts/2023/01/27/elegant-rspec-example/)
 
 
-      Question: {question}`)
+      Question: {question}`);
 
     const chain = RunnableSequence.from([
       {
@@ -94,11 +99,11 @@ export class ChatAI extends OpenAPIRoute {
     const question = data.body;
     const result = await chain.invoke(question.message);
 
-		return {
-			success: true,
-			data: {
-        message: result
-			},
-		};
-	}
+    return {
+      success: true,
+      data: {
+        message: result,
+      },
+    };
+  }
 }
