@@ -8,7 +8,9 @@
     "start": "wrangler dev"
   },
   "dependencies": {
-    "@cloudflare/itty-router-openapi": "^1.0.1"
+    "@cloudflare/itty-router-openapi": "^1.0.1",
+    "@langchain/cloudflare": "^0.0.2",
+    "@langchain/openai": "^0.0.14"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240129.0",

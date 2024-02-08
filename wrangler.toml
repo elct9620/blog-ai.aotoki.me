@@ -5,3 +5,6 @@ compatibility_date = "2024-01-29"
 [[vectorize]]
 binding = "VECTOR_INDEX"
 index_name = "blog"
+
+[ai]
+binding = "AI"
