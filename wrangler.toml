@@ -2,8 +2,10 @@ name = "blog-knowledge-base"
 main = "src/index.ts"
 compatibility_date = "2024-01-29"
 
+[vars]
+
 [[vectorize]]
-binding = "VECTOR_INDEX"
+binding = "VECTORIZE_INDEX"
 index_name = "blog"
 
 [ai]
