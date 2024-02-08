@@ -46,11 +46,17 @@ export class ChatAI extends OpenAPIRoute {
 	  const model = new ChatOpenAI({
       openAIApiKey: env.OPENAI_API_KEY,
       modelName: "gpt-3.5-turbo",
+      configuration: {
+        baseURL: env.OPENAI_GATEWAY
+      }
 	  })
 	  const embeddings = new OpenAIEmbeddings({
       openAIApiKey: env.OPENAI_API_KEY,
       modelName: EMBENDDINGS_MODEL,
-	  });
+      configuration: {
+        baseURL: env.OPENAI_GATEWAY
+      }
+	  })
 	  const store = new CloudflareVectorizeStore(embeddings, {
       index: env.VECTORIZE_INDEX,
 	  })
