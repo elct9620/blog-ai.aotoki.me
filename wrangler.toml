@@ -5,6 +5,9 @@ routes = [
 	{ pattern = "blog-kb.aotoki.me", custom_domain = true },
 ]
 
+[placement]
+mode = "smart"
+
 [vars]
 OPENAI_GATEWAY = "https://gateway.ai.cloudflare.com/v1/614fcd230e7a893b205fd36259d9aff3/blog-knowledge-base/openai"
 
