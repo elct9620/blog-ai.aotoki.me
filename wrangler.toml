@@ -2,7 +2,7 @@ name = "blog-knowledge-base"
 main = "src/index.ts"
 compatibility_date = "2024-01-29"
 routes = [
-	{ pattern = "blog-kb.aotoki.me", custom_domain = true },
+	{ pattern = "blog-ai.aotoki.me", custom_domain = true },
 ]
 
 [placement]
