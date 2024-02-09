@@ -26,7 +26,7 @@ export const formatContentAsString = (documents: Document[]): string =>
     )
     .join("\n\n");
 
-export class ChatAI extends OpenAPIRoute {
+export class Suggest extends OpenAPIRoute {
   static schema: OpenAPIRouteSchema = {
     tags: ["AI"],
     summary: "Chat with the AI",

@@ -1,11 +1,11 @@
 import { OpenAPIRouter } from "@cloudflare/itty-router-openapi";
-import { ChatAI } from "./endpoints/chatAI";
+import { Suggest } from "./endpoints/suggest";
 
 export const router = OpenAPIRouter({
   docs_url: "/",
 });
 
-router.post("/v1/chat/", ChatAI);
+router.post("/v1/suggest", Suggest);
 
 // 404 for everything else
 router.all("*", () =>
