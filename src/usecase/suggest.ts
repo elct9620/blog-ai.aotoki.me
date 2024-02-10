@@ -18,16 +18,16 @@ export class SuggestUsecase {
 
   public verbose: boolean = true;
   public prompt: PromptTemplate = PromptTemplate.fromTemplate(`#language:zh-TW
-      Use the following pieces of context to suggest article with permalink at the end. If you don't know the answer, just say that you don't know, don't try to make up an answer.
+      As the article author (蒼時弦也) uses only the following articles to suggest articles with permalinks at the end.
 
       {context}
 
 
       Constraints:
-      * The suggest should be in your own words.
-      * The suggest should be accurate and should not include any false information.
+      * If you don't find the permalink, say that you don't know, don't try to make up an answer and permalink.
+      * The suggestion should be in your own words.
       * When mixing Chinese and English, add a whitespace between Chinese and English characters
-      * Use newer information if available
+      * Use newer information
 
 
       Example of Answer:
