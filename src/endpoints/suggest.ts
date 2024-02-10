@@ -7,8 +7,6 @@ import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
 import { CloudflareVectorizeStore } from "@langchain/cloudflare";
 import { SuggestUsecase } from "../usecase/suggest";
 
-const EMBENDDINGS_MODEL = "text-embedding-3-small";
-
 export class Suggest extends OpenAPIRoute {
   static schema: OpenAPIRouteSchema = {
     tags: ["AI"],
@@ -33,7 +31,7 @@ export class Suggest extends OpenAPIRoute {
   ) {
     const llm = new ChatOpenAI({
       openAIApiKey: env.OPENAI_API_KEY,
-      modelName: "gpt-3.5-turbo",
+      modelName: env.LLM_MODEL,
       temperature: 0,
       configuration: {
         baseURL: env.OPENAI_GATEWAY,
@@ -41,7 +39,7 @@ export class Suggest extends OpenAPIRoute {
     });
     const embeddings = new OpenAIEmbeddings({
       openAIApiKey: env.OPENAI_API_KEY,
-      modelName: EMBENDDINGS_MODEL,
+      modelName: env.TEXT_EMBEDDING_MODEL,
       configuration: {
         baseURL: env.OPENAI_GATEWAY,
       },
