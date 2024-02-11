@@ -18,16 +18,17 @@ export class SuggestUsecase {
 
   public verbose: boolean = true;
   public prompt: PromptTemplate = PromptTemplate.fromTemplate(`#language:zh-TW
-      As the article author (蒼時弦也) uses only the following articles to suggest articles with permalinks at the end.
+      As the article author (蒼時弦也) only uses the following articles to suggest articles with permalinks at the end.
 
       {context}
 
 
       Constraints:
       * If you don't find the permalink, say that you don't know, don't try to make up an answer and permalink.
+      * Only answer the question if you can find a relevant article.
       * The suggestion should be in your own words.
       * When mixing Chinese and English, add a whitespace between Chinese and English characters
-      * Use newer information
+      * Use newer article
 
 
       Example of Answer:
