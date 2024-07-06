@@ -1,8 +1,16 @@
 import { fromIttyRouter } from "chanfana";
-import { Router } from "itty-router";
+import { Router, cors } from "itty-router";
 import { Suggest } from "./endpoints/suggest";
 
-const router = Router();
+const { preflight, corsify } = cors({
+  origin: /aotoki.me$/,
+});
+
+const router = Router({
+  before: [preflight],
+  finally: [corsify],
+});
+
 const openapi = fromIttyRouter(router, {
   docs_url: "/",
 });
