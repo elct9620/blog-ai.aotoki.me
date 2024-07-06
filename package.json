@@ -7,11 +7,11 @@
     "dev": "wrangler dev --remote"
   },
   "dependencies": {
-    "@langchain/cloudflare": "^0.0.2",
-    "@langchain/openai": "^0.0.14",
+    "@langchain/cloudflare": "^0.0.6",
+    "@langchain/openai": "^0.2.1",
     "chanfana": "^2.0.2",
     "itty-router": "^5.0.17",
-    "langchain": "^0.1.16",
+    "langchain": "^0.2.8",
     "zod": "^3.23.8"
   },
   "devDependencies": {
