@@ -7,10 +7,12 @@
     "dev": "wrangler dev --remote"
   },
   "dependencies": {
-    "@cloudflare/itty-router-openapi": "^1.0.1",
     "@langchain/cloudflare": "^0.0.2",
     "@langchain/openai": "^0.0.14",
-    "langchain": "^0.1.16"
+    "chanfana": "^2.0.2",
+    "itty-router": "^5.0.17",
+    "langchain": "^0.1.16",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240129.0",

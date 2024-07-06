@@ -1,11 +1,12 @@
-import { OpenAPIRouter } from "@cloudflare/itty-router-openapi";
+import { fromIttyRouter } from "chanfana";
+import { Router } from "itty-router";
 import { Suggest } from "./endpoints/suggest";
 
-export const router = OpenAPIRouter({
+const router = Router();
+const openapi = fromIttyRouter(router, {
   docs_url: "/",
 });
-
-router.post("/v1/suggest", Suggest);
+openapi.post("/v1/suggest", Suggest);
 
 // 404 for everything else
 router.all("*", () =>
@@ -18,6 +19,4 @@ router.all("*", () =>
   ),
 );
 
-export default {
-  fetch: router.handle,
-};
+export default openapi;

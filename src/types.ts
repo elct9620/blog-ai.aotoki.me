@@ -1,9 +1,9 @@
-import { DateTime, Str } from "@cloudflare/itty-router-openapi";
+import { z } from "zod";
 
-export const Question = {
-  message: new Str({ example: "lorem" }),
-};
+export const Question = z.object({
+  message: z.string(),
+});
 
-export const Answer = {
-  message: new Str({ example: "lorem" }),
-};
+export const Answer = z.object({
+  message: z.string(),
+});
