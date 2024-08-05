@@ -7,7 +7,7 @@
     "dev": "wrangler dev --remote"
   },
   "dependencies": {
-    "@langchain/cloudflare": "^0.0.6",
+    "@langchain/cloudflare": "^0.0.7",
     "@langchain/openai": "^0.2.5",
     "chanfana": "^2.0.2",
     "itty-router": "^5.0.17",
