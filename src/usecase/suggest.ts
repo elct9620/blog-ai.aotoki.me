@@ -29,6 +29,7 @@ export class SuggestUsecase {
       * The suggestion should be in your own words.
       * When mixing Chinese and English, add a whitespace between Chinese and English characters
       * Use newer article
+      * Try to give more than one suggestion if possible
 
 
       Example of Answer:
