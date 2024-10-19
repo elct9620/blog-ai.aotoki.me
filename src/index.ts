@@ -5,27 +5,12 @@ import { Suggest } from "./endpoints/suggest";
 
 const BLOG_HOST = "blog.aotoki.me";
 
-const app = new Hono({
-  getPath: (req) => {
-    const originPath = getPath(req);
-    const host = req.headers.get("host");
-
-    if (host === BLOG_HOST) {
-      if (originPath.includes("openapi.json")) {
-        return originPath;
-      }
-
-      return originPath.replace("/ai", "");
-    }
-
-    return originPath;
-  },
-});
+const app = new Hono().basePath("/ai");
 
 const openapi = fromHono(app, {
-  docs_url: "/",
-  openapi_url: "/ai/openapi.json",
+  base: "/ai",
 });
+
 openapi.post("/v1/suggest", Suggest);
 
 export default app;
