@@ -4,6 +4,7 @@ import { Question, Answer } from "../types";
 import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
 import { CloudflareVectorizeStore } from "@langchain/cloudflare";
 import { SuggestUsecase } from "../usecase/suggest";
+import { Context } from "hono";
 
 export class Suggest extends OpenAPIRoute {
   schema = {
@@ -33,26 +34,26 @@ export class Suggest extends OpenAPIRoute {
     },
   };
 
-  async handle(request: Request, env: any, context: any) {
+  async handle(c: Context) {
     const data = await this.getValidatedData<typeof this.schema>();
 
     const llm = new ChatOpenAI({
-      openAIApiKey: env.OPENAI_API_KEY,
-      modelName: env.LLM_MODEL,
+      openAIApiKey: c.env.OPENAI_API_KEY,
+      modelName: c.env.LLM_MODEL,
       temperature: 0,
       configuration: {
-        baseURL: env.OPENAI_GATEWAY,
+        baseURL: c.env.OPENAI_GATEWAY,
       },
     });
     const embeddings = new OpenAIEmbeddings({
-      openAIApiKey: env.OPENAI_API_KEY,
-      modelName: env.TEXT_EMBEDDING_MODEL,
+      openAIApiKey: c.env.OPENAI_API_KEY,
+      modelName: c.env.TEXT_EMBEDDING_MODEL,
       configuration: {
-        baseURL: env.OPENAI_GATEWAY,
+        baseURL: c.env.OPENAI_GATEWAY,
       },
     });
     const store = new CloudflareVectorizeStore(embeddings, {
-      index: env.VECTORIZE_INDEX,
+      index: c.env.VECTORIZE_INDEX,
     });
 
     const usecase = new SuggestUsecase(llm, store);
