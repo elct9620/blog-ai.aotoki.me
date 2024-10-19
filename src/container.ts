@@ -1,6 +1,13 @@
-import { DependencyContainer, InjectionToken, container } from "tsyringe";
+import {
+  DependencyContainer,
+  InjectionToken,
+  container,
+  instanceCachingFactory,
+} from "tsyringe";
 import { createMiddleware } from "hono/factory";
 import { Context, MiddlewareHandler, Next } from "hono";
+import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
+import { Config } from "config";
 
 type Injector = {
   Variables: {
@@ -28,3 +35,30 @@ declare module "hono" {
     resolve: <T>(token: InjectionToken<T>) => T;
   }
 }
+
+container.register(ChatOpenAI, {
+  useFactory: instanceCachingFactory((c) => {
+    const config = c.resolve(Config);
+    return new ChatOpenAI({
+      openAIApiKey: config.OpenAiApiKey,
+      modelName: config.LlmModel,
+      temperature: 0,
+      configuration: {
+        baseURL: config.OpenAiGateway,
+      },
+    });
+  }),
+});
+
+container.register(OpenAIEmbeddings, {
+  useFactory: instanceCachingFactory((c) => {
+    const config = c.resolve(Config);
+    return new OpenAIEmbeddings({
+      openAIApiKey: config.OpenAiApiKey,
+      modelName: config.TextEmbeddingModel,
+      configuration: {
+        baseURL: config.OpenAiGateway,
+      },
+    });
+  }),
+});

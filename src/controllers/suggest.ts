@@ -37,26 +37,8 @@ export class Suggest extends OpenAPIRoute {
 
   async handle(c: Context) {
     const data = await this.getValidatedData<typeof this.schema>();
-    const config = c.var.resolve(Config);
-
-    const llm = new ChatOpenAI({
-      openAIApiKey: config.OpenAiApiKey,
-      modelName: config.LlmModel,
-      temperature: 0,
-      configuration: {
-        baseURL: config.OpenAiGateway,
-      },
-    });
-    const embeddings = new OpenAIEmbeddings({
-      openAIApiKey: config.OpenAiApiKey,
-      modelName: config.TextEmbeddingModel,
-      configuration: {
-        baseURL: config.OpenAiGateway,
-      },
-    });
-    const store = new CloudflareVectorizeStore(embeddings, {
-      index: c.env.VECTORIZE_INDEX,
-    });
+    const llm = c.var.resolve(ChatOpenAI);
+    const store = c.var.resolve(CloudflareVectorizeStore);
 
     const usecase = new SuggestUsecase(llm, store);
     const result = await usecase.Execute({
