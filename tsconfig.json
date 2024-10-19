@@ -21,6 +21,8 @@
     "outDir": "",
     "target": "esnext",
     "module": "esnext",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "types": [
       "@types/node",
       "@types/service-worker-mock",
