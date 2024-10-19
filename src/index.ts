@@ -11,6 +11,10 @@ const app = new Hono({
     const host = req.headers.get("host");
 
     if (host === BLOG_HOST) {
+      if (originPath.includes("openapi.json")) {
+        return originPath;
+      }
+
       return originPath.replace("/ai", "");
     }
 
