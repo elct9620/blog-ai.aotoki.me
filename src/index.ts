@@ -6,7 +6,7 @@ import { Hono } from "hono";
 import { Bindings } from "./bindings";
 import { Config } from "./config";
 import { injectionMiddleware } from "./container";
-import { Suggest } from "./endpoints/suggest";
+import { Suggest } from "./controllers/suggest";
 
 const app = new Hono<{ Bindings: Bindings }>().basePath("/ai");
 app.use(
