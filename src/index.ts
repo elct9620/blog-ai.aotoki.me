@@ -20,6 +20,7 @@ const app = new Hono({
 
 const openapi = fromHono(app, {
   docs_url: "/",
+  openapi_url: "/ai/openapi.json",
 });
 openapi.post("/v1/suggest", Suggest);
 
