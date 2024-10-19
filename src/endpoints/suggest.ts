@@ -5,6 +5,7 @@ import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
 import { CloudflareVectorizeStore } from "@langchain/cloudflare";
 import { SuggestUsecase } from "../usecase/suggest";
 import { Context } from "hono";
+import { Config } from "config";
 
 export class Suggest extends OpenAPIRoute {
   schema = {
@@ -36,20 +37,21 @@ export class Suggest extends OpenAPIRoute {
 
   async handle(c: Context) {
     const data = await this.getValidatedData<typeof this.schema>();
+    const config = c.var.resolve(Config);
 
     const llm = new ChatOpenAI({
-      openAIApiKey: c.env.OPENAI_API_KEY,
-      modelName: c.env.LLM_MODEL,
+      openAIApiKey: config.OpenAiApiKey,
+      modelName: config.LlmModel,
       temperature: 0,
       configuration: {
-        baseURL: c.env.OPENAI_GATEWAY,
+        baseURL: config.OpenAiGateway,
       },
     });
     const embeddings = new OpenAIEmbeddings({
-      openAIApiKey: c.env.OPENAI_API_KEY,
-      modelName: c.env.TEXT_EMBEDDING_MODEL,
+      openAIApiKey: config.OpenAiApiKey,
+      modelName: config.TextEmbeddingModel,
       configuration: {
-        baseURL: c.env.OPENAI_GATEWAY,
+        baseURL: config.OpenAiGateway,
       },
     });
     const store = new CloudflareVectorizeStore(embeddings, {
