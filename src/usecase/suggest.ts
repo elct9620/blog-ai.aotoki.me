@@ -1,8 +1,11 @@
+import { injectable, inject } from "tsyringe";
 import type { BaseLanguageModelInterface } from "@langchain/core/language_models/base";
 import { VectorStoreInterface } from "@langchain/core/vectorstores";
 import { PromptTemplate } from "@langchain/core/prompts";
 import { RetrievalQAChain } from "langchain/chains";
 import { loadPostSuggestChain } from "../chains";
+
+import { IBaseLanguageModel, IVectorStore } from "./langchain";
 
 export type SuggestInput = {
   question: string;
@@ -12,10 +15,8 @@ export type SuggestOutput = {
   answer: string;
 };
 
+@injectable()
 export class SuggestUsecase {
-  private readonly LLM: BaseLanguageModelInterface;
-  private readonly vectorStore: VectorStoreInterface;
-
   public verbose: boolean = true;
   public prompt: PromptTemplate = PromptTemplate.fromTemplate(`#language:zh-TW
       As the article author (蒼時弦也) only uses the following articles to suggest articles with permalinks at the end.
@@ -42,12 +43,10 @@ export class SuggestUsecase {
       Answer in Mandarin Chinese:`);
 
   constructor(
-    LLM: BaseLanguageModelInterface,
-    vectorStore: VectorStoreInterface,
-  ) {
-    this.LLM = LLM;
-    this.vectorStore = vectorStore;
-  }
+    @inject(IBaseLanguageModel)
+    private readonly LLM: BaseLanguageModelInterface,
+    @inject(IVectorStore) private readonly vectorStore: VectorStoreInterface,
+  ) {}
 
   async Execute(input: SuggestInput): Promise<SuggestOutput> {
     const retriever = this.vectorStore.asRetriever({

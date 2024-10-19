@@ -9,6 +9,7 @@ import { injectionMiddleware } from "./container";
 import { Suggest } from "./controllers/suggest";
 import { CloudflareVectorizeStore } from "@langchain/cloudflare";
 import { OpenAIEmbeddings } from "@langchain/openai";
+import { IVectorStore } from "usecase/langchain";
 
 const app = new Hono<{ Bindings: Bindings }>().basePath("/ai");
 app.use(
@@ -30,6 +31,7 @@ app.use(
         });
       },
     });
+    container.register(IVectorStore, { useToken: CloudflareVectorizeStore });
   }),
 );
 

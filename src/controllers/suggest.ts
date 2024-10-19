@@ -37,10 +37,7 @@ export class Suggest extends OpenAPIRoute {
 
   async handle(c: Context) {
     const data = await this.getValidatedData<typeof this.schema>();
-    const llm = c.var.resolve(ChatOpenAI);
-    const store = c.var.resolve(CloudflareVectorizeStore);
-
-    const usecase = new SuggestUsecase(llm, store);
+    const usecase = c.var.resolve(SuggestUsecase);
     const result = await usecase.Execute({
       question: data.body.message,
     });
