@@ -1,5 +1,6 @@
 name = "blog-knowledge-base"
 main = "src/index.ts"
+minify = true
 compatibility_date = "2024-01-29"
 routes = [
 	{ pattern = "blog.aotoki.me/ai/*", zone_name = "aotoki.me" },
