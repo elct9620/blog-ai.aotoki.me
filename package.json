@@ -21,6 +21,6 @@
     "@types/node": "^22.8.1",
     "@types/service-worker-mock": "^2.0.1",
     "prettier": "^3.3.3",
-    "wrangler": "^3.81.0"
+    "wrangler": "^3.84.1"
   }
 }
