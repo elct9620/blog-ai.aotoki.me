@@ -9,7 +9,7 @@ container.register(ChatOpenAI, {
     return new ChatOpenAI({
       openAIApiKey: config.OpenAiApiKey,
       modelName: config.LlmModel,
-      temperature: 0,
+      temperature: 0.65,
       configuration: {
         baseURL: config.OpenAiGateway,
       },

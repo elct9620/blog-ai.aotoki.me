@@ -19,28 +19,23 @@ export type SuggestOutput = {
 export class SuggestUsecase {
   public verbose: boolean = true;
   public prompt: PromptTemplate = PromptTemplate.fromTemplate(`#language:zh-TW
-      As the article author (蒼時弦也) only uses the following articles to suggest articles with permalinks at the end.
+        我是作者（蒼時弦也），以下是根據我所撰寫的文章為您推薦的相關文章，文章後方附有永久連結。
+        {context}
+        注意事項：
+        * 如果無法找到永久連結，請明確告知使用者，不要試圖編造答案或連結。
+        * 只有在找到相關文章時才能回答問題。
+        * 建議以自己的話語重新表述。
+        * 中英文混合時，請在中文與英文字符之間加上空白。
+        * 優先推薦較新的文章。
+        * 如果可能，請提供多於三篇的建議文章。
 
-      {context}
+        範例回答：
+        撰寫 RSpec 測試時，可以考慮使用 One-liner 方式，這樣可以讓測試程式碼更加簡潔，易於閱讀。
+        參考文章：
+        * [優雅的 RSpec 測試 - 測試案例](https://blog.aotoki.me/posts/2023/01/27/elegant-rspec-example/)
 
-
-      Constraints:
-      * If you don't find the permalink, say that you don't know, don't try to make up an answer and permalink.
-      * Only answer the question if you can find a relevant article.
-      * The suggestion should be in your own words.
-      * When mixing Chinese and English, add a whitespace between Chinese and English characters
-      * Use newer article
-      * Try to give more than one suggestion if possible
-
-
-      Example of Answer:
-      撰寫 RSpec 可以透過 One-linear 來撰寫測試，這樣可以讓測試更簡潔，並且更容易閱讀。
-      參考文章：
-      * [優雅的 RSpec 測試 - 測試案例](https://blog.aotoki.me/posts/2023/01/27/elegant-rspec-example/)
-
-
-      Question: {question}
-      Answer in Mandarin Chinese:`);
+        問題：{question}
+        請用正體中文（台灣）回答：`);
 
   constructor(
     @inject(IBaseLanguageModel)
@@ -50,6 +45,7 @@ export class SuggestUsecase {
 
   async Execute(input: SuggestInput): Promise<SuggestOutput> {
     const retriever = this.vectorStore.asRetriever({
+      k: 10,
       metadata: { title: true, permalink: true, published_at: true },
     });
 
