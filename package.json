@@ -9,7 +9,7 @@
   "dependencies": {
     "@langchain/cloudflare": "^0.1.0",
     "@langchain/openai": "^0.3.14",
-    "chanfana": "^2.3.0",
+    "chanfana": "^2.4.2",
     "hono": "^4.6.12",
     "langchain": "^0.3.6",
     "reflect-metadata": "^0.2.2",
