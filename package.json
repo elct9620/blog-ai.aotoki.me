@@ -10,7 +10,7 @@
     "@langchain/cloudflare": "^0.1.0",
     "@langchain/openai": "^0.3.16",
     "chanfana": "^2.5.2",
-    "hono": "^4.6.15",
+    "hono": "^4.6.16",
     "langchain": "^0.3.8",
     "reflect-metadata": "^0.2.2",
     "tsyringe": "^4.8.0",
