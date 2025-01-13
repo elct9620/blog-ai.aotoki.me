@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@langchain/cloudflare": "^0.1.0",
-    "@langchain/openai": "^0.3.16",
+    "@langchain/openai": "^0.3.17",
     "chanfana": "^2.5.4",
     "hono": "^4.6.16",
     "langchain": "^0.3.11",
