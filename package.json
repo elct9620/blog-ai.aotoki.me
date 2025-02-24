@@ -20,7 +20,7 @@
     "@cloudflare/workers-types": "^4.20250214.0",
     "@types/node": "^22.13.4",
     "@types/service-worker-mock": "^2.0.1",
-    "prettier": "^3.5.1",
+    "prettier": "^3.5.2",
     "wrangler": "^3.109.2"
   }
 }
