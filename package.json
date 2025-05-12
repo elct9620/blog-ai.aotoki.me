@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250505.0",
-    "@types/node": "^22.15.2",
+    "@types/node": "^22.15.17",
     "@types/service-worker-mock": "^2.0.1",
     "prettier": "^3.5.3",
     "wrangler": "^4.14.1"
