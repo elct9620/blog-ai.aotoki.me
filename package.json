@@ -14,7 +14,7 @@
     "langchain": "^0.3.27",
     "reflect-metadata": "^0.2.2",
     "tsyringe": "^4.10.0",
-    "zod": "^3.25.28"
+    "zod": "^3.25.46"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250525.0",
