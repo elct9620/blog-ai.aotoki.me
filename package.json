@@ -17,7 +17,7 @@
     "zod": "^3.25.56"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250601.0",
+    "@cloudflare/workers-types": "^4.20250607.0",
     "@types/node": "^22.15.30",
     "@types/service-worker-mock": "^2.0.1",
     "prettier": "^3.5.3",
